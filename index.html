@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TXT WORLDWIDE SHOP — Gadgets, Audio & Smart Home in Hong Kong</title>
+  <meta name="description" content="Smartphones, audio & speakers, gaming, chargers, smart home and wearables from leading brands. Delivery across Hong Kong." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235E6AD2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/></svg>" />
+</head>
+<body>
+  <!-- ================= SVG ICON SPRITE (Lucide-style) ================= -->
+  <svg width="0" height="0" class="svg-sprite" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="ic-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+      <symbol id="ic-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="ic-headphones" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
+      <symbol id="ic-gamepad" viewBox="0 0 24 24"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></symbol>
+      <symbol id="ic-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+      <symbol id="ic-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+      <symbol id="ic-watch" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13 13"/><path d="m16.13 7.66-.81-4.05a2 2 0 0 0-2-1.61h-2.68a2 2 0 0 0-2 1.61l-.78 4.05"/><path d="m7.88 16.36.8 4a2 2 0 0 0 2 1.61h2.72a2 2 0 0 0 2-1.61l.81-4.05"/></symbol>
+      <symbol id="ic-package" viewBox="0 0 24 24"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></symbol>
+      <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="ic-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+      <symbol id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+      <symbol id="ic-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+      <symbol id="ic-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+      <symbol id="ic-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+      <symbol id="ic-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+      <symbol id="ic-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+      <symbol id="ic-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+      <symbol id="ic-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="ic-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="ic-rotate" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+      <symbol id="ic-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></symbol>
+      <symbol id="ic-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-3a2 2 0 0 1 0-4h3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+      <symbol id="ic-settings" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></symbol>
+      <symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+      <symbol id="ic-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="#top">
+        <span class="logo-mark"><svg class="ic"><use href="#ic-zap"/></svg></span>
+        <span class="logo-text" data-store-name>TXT WORLDWIDE SHOP</span>
+      </a>
+
+      <div class="search-box">
+        <svg class="ic search-ico"><use href="#ic-search"/></svg>
+        <input id="search" type="search" placeholder="Search iPhone, headphones, GaN, RGB…" autocomplete="off" />
+      </div>
+
+      <div class="header-actions">
+        <button id="theme-toggle" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">
+          <svg class="ic ic-theme-moon"><use href="#ic-moon"/></svg>
+          <svg class="ic ic-theme-sun"><use href="#ic-sun"/></svg>
+        </button>
+        <button id="open-cart" class="cart-btn" aria-label="Cart">
+          <svg class="ic"><use href="#ic-cart"/></svg>
+          <span class="cart-label">Cart</span>
+          <span id="cart-count" class="cart-count" hidden>0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <a id="top"></a>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero-wrap">
+    <div class="ambient" aria-hidden="true">
+      <span class="blob blob-a"></span>
+      <span class="blob blob-b"></span>
+      <span class="blob blob-c"></span>
+    </div>
+    <div class="wrap hero">
+      <div class="hero-copy reveal">
+        <p class="hero-kicker"><svg class="ic"><use href="#ic-truck"/></svg> Delivery across Hong Kong in 1–3 days</p>
+        <h1>Tech you'll want to <span class="grad">power on right now</span></h1>
+        <p class="hero-sub" data-tagline>Smartphones, audio, gaming, chargers, smart home and wearables — dozens of top brands in one place.</p>
+        <div class="hero-cta">
+          <a href="#catalog" class="btn btn-primary">Browse catalog</a>
+          <a href="#brands" class="btn btn-ghost">Brands</a>
+        </div>
+        <div class="hero-badges">
+          <span><svg class="ic"><use href="#ic-shield"/></svg> 3-year worldwide warranty</span>
+          <span><svg class="ic"><use href="#ic-lock"/></svg> Secure payment</span>
+          <span><svg class="ic"><use href="#ic-rotate"/></svg> 14-day returns</span>
+        </div>
+      </div>
+      <div class="hero-art reveal" aria-hidden="true">
+        <div class="tile tile-1"><svg class="prod-ic"><use href="#ic-headphones"/></svg></div>
+        <div class="tile tile-2"><svg class="prod-ic"><use href="#ic-phone"/></svg></div>
+        <div class="tile tile-3"><svg class="prod-ic"><use href="#ic-watch"/></svg></div>
+        <div class="tile tile-4"><svg class="prod-ic"><use href="#ic-gamepad"/></svg></div>
+        <div class="tile tile-5"><svg class="prod-ic"><use href="#ic-zap"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BRANDS ================= -->
+  <section id="brands" class="brands wrap">
+    <div class="brands-track" id="brands-track"><!-- filled by JS --></div>
+  </section>
+
+  <!-- ================= TRUST / WARRANTY ================= -->
+  <section class="trust wrap" aria-label="Warranty and guarantees">
+    <div class="trust-card hl reveal">
+      <svg class="ic"><use href="#ic-shield"/></svg>
+      <div><b>3-year worldwide warranty</b>
+        <span>Every product bought from our stores comes with our own <strong>3-year warranty, valid in any country</strong> — repair or replacement, wherever you are.</span></div>
+    </div>
+    <div class="trust-card reveal">
+      <svg class="ic"><use href="#ic-globe"/></svg>
+      <div><b>Worldwide shipping</b><span>Fast, fully tracked delivery to your door — anywhere in the world.</span></div>
+    </div>
+    <div class="trust-card reveal">
+      <svg class="ic"><use href="#ic-lock"/></svg>
+      <div><b>Secure payment</b><span>Card is entered on the provider's secure page. We never store card data.</span></div>
+    </div>
+    <div class="trust-card reveal">
+      <svg class="ic"><use href="#ic-rotate"/></svg>
+      <div><b>14-day returns</b><span>Changed your mind? Return any item within 14 days, hassle-free.</span></div>
+    </div>
+  </section>
+
+  <!-- ================= CATALOG ================= -->
+  <section id="catalog" class="wrap catalog">
+    <div class="catalog-head">
+      <h2>Catalog</h2>
+      <span id="result-count" class="result-count"></span>
+    </div>
+
+    <div class="cats" id="cats"><!-- category tabs, JS --></div>
+
+    <div class="toolbar">
+      <div class="chips" id="brand-chips"><!-- brand filter, JS --></div>
+      <select id="sort" class="sort" aria-label="Sort">
+        <option value="pop">Most popular</option>
+        <option value="price-asc">Price: low to high</option>
+        <option value="price-desc">Price: high to low</option>
+        <option value="name">Name A–Z</option>
+      </select>
+    </div>
+
+    <div id="grid" class="grid"><!-- product cards, JS --></div>
+    <div id="empty" class="empty" hidden>Nothing found. Try changing the filters.</div>
+  </section>
+
+  <!-- ================= POLICY / WARRANTY ================= -->
+  <section id="policy" class="policy wrap" aria-label="Warranty and returns policy">
+    <h2>Warranty &amp; Returns Policy</h2>
+    <div class="policy-grid">
+      <article>
+        <h4><svg class="ic"><use href="#ic-shield"/></svg> 3-year worldwide warranty</h4>
+        <p>Every product purchased from <strong>TXT WORLDWIDE SHOP</strong> is covered by our own
+        <strong>3-year warranty, valid worldwide</strong>. If a device develops a manufacturing
+        defect, we repair or replace it free of charge — in any country. The warranty period starts
+        on the delivery date; please keep your order number as proof of purchase.</p>
+      </article>
+      <article>
+        <h4><svg class="ic"><use href="#ic-globe"/></svg> Worldwide coverage &amp; support</h4>
+        <p>Our warranty travels with the product across borders. Wherever you are, contact us with your
+        order number and we'll arrange service through our international support network.</p>
+      </article>
+      <article>
+        <h4><svg class="ic"><use href="#ic-rotate"/></svg> 14-day returns</h4>
+        <p>Changed your mind? Return any unused item in its original packaging within 14 days of
+        delivery for a full refund. Return shipping instructions are provided with your order.</p>
+      </article>
+      <article>
+        <h4><svg class="ic"><use href="#ic-lock"/></svg> What the warranty excludes</h4>
+        <p>Accidental or liquid damage, unauthorised repairs, and normal wear are not covered.
+        Consumable parts such as batteries follow standard manufacturer terms. Statutory consumer
+        rights are unaffected.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark"><svg class="ic"><use href="#ic-zap"/></svg></span><span class="logo-text" data-store-name>TXT WORLDWIDE SHOP</span></div>
+        <p class="muted">Gadgets &amp; electronics from leading brands.<br />Hong Kong · Mon–Sat 10:00–20:00</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="#catalog">Catalog</a><a href="#brands">Brands</a><a href="#top">Back to top</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#policy">Warranty — 3-year worldwide</a><a href="#policy">Returns</a><a href="#">Contact</a>
+      </div>
+      <div>
+        <h4>Payment</h4>
+        <p class="muted">Payment on the provider's secure page.<br />We never store your card details.</p>
+      </div>
+    </div>
+    <div class="wrap copyright muted">© <span id="year"></span> TXT WORLDWIDE SHOP. Demo store.</div>
+  </footer>
+
+  <!-- ================= CART DRAWER ================= -->
+  <div id="overlay" class="overlay" hidden></div>
+
+  <aside id="cart" class="cart-drawer" aria-label="Cart" hidden>
+    <div class="cart-top">
+      <h3>Cart</h3>
+      <button id="close-cart" class="icon-btn" aria-label="Close"><svg class="ic"><use href="#ic-x"/></svg></button>
+    </div>
+    <div id="cart-items" class="cart-items"><!-- JS --></div>
+    <div id="cart-empty" class="cart-empty">
+      <div class="cart-empty-ico"><svg class="prod-ic"><use href="#ic-cart"/></svg></div>
+      <p>Your cart is empty.<br />Add products from the catalog.</p>
+    </div>
+    <div class="cart-foot" id="cart-foot" hidden>
+      <div class="sum-row"><span>Items</span><span id="sum-items">HK$0</span></div>
+      <div class="sum-row"><span>Shipping</span><span id="sum-ship">—</span></div>
+      <div class="sum-row total"><span>Total</span><span id="sum-total">HK$0</span></div>
+      <button id="go-checkout" class="btn btn-primary btn-block">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ================= CHECKOUT MODAL ================= -->
+  <div id="checkout" class="modal" hidden>
+    <div class="modal-card">
+      <div class="modal-top">
+        <h3>Checkout</h3>
+        <button id="close-checkout" class="icon-btn" aria-label="Close"><svg class="ic"><use href="#ic-x"/></svg></button>
+      </div>
+
+      <form id="checkout-form" class="checkout-form" novalidate>
+        <!-- Step 1 — Payment method -->
+        <section class="co-section">
+          <h4 class="co-title"><span class="step-num">1</span> Payment</h4>
+          <div class="pay-methods">
+            <label class="pay-method">
+              <input type="radio" name="method" value="card" checked />
+              <svg class="ic pm-ico"><use href="#ic-card"/></svg>
+              <span class="pm-text"><b>Credit / Debit card</b><small>Visa · Mastercard · Amex · UnionPay</small></span>
+              <span class="pm-secure"><svg class="ic"><use href="#ic-lock"/></svg> Stripe</span>
+            </label>
+            <label class="pay-method">
+              <input type="radio" name="method" value="paypal" />
+              <svg class="ic pm-ico"><use href="#ic-wallet"/></svg>
+              <span class="pm-text"><b>PayPal</b><small>Pay with your PayPal account</small></span>
+            </label>
+          </div>
+          <div class="pay-note" id="pay-note"><!-- JS: payment connection status --></div>
+        </section>
+
+        <!-- Step 2 — Delivery details -->
+        <section class="co-section">
+          <h4 class="co-title"><span class="step-num">2</span> Delivery details</h4>
+          <div class="field-grid">
+            <label class="field"><span>Full name *</span>
+              <input name="name" required autocomplete="name" placeholder="Chan Tai Man" /></label>
+            <label class="field"><span>Phone *</span>
+              <input name="phone" required autocomplete="tel" placeholder="+852 ..." /></label>
+            <label class="field field-wide"><span>Email *</span>
+              <input name="email" type="email" required autocomplete="email" placeholder="you@email.com" /></label>
+            <label class="field field-wide"><span>Delivery address *</span>
+              <input name="address" required autocomplete="street-address" placeholder="Street, building, flat" /></label>
+            <label class="field"><span>District / city *</span>
+              <input name="city" required autocomplete="address-level2" placeholder="Kowloon" /></label>
+            <label class="field"><span>Shipping method</span>
+              <select name="shipping">
+                <option value="standard">Standard (1–3 days)</option>
+                <option value="express">Express (same day)</option>
+                <option value="pickup">Pickup</option>
+              </select></label>
+            <label class="field field-wide"><span>Order note</span>
+              <input name="note" placeholder="Optional" /></label>
+          </div>
+        </section>
+
+        <div class="order-mini" id="order-mini"><!-- JS --></div>
+
+        <button type="submit" id="pay-btn" class="btn btn-primary btn-block">Pay by card</button>
+        <p class="secure-line"><svg class="ic"><use href="#ic-lock"/></svg> The card is entered on the provider's secure page (Stripe). Card details are never entered or stored on this site.</p>
+      </form>
+
+      <!-- Success screen -->
+      <div id="order-success" class="order-success" hidden>
+        <div class="success-ico"><svg class="prod-ic"><use href="#ic-check"/></svg></div>
+        <h3>Order placed!</h3>
+        <p id="success-text" class="muted"></p>
+        <button id="success-close" class="btn btn-primary">Great</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

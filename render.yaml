@@ -1,0 +1,8 @@
+# Render Blueprint — deploy the static storefront.
+# In Render:  New +  →  Blueprint  →  connect this GitHub repo (auto-reads this file).
+# Or manually: New +  →  Static Site  →  pick the repo  →  Publish directory: .  (no build command)
+services:
+  - type: web
+    name: txt-worldwide-shop
+    runtime: static
+    staticPublishPath: .
