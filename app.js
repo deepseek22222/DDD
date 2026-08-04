@@ -1,5 +1,5 @@
 /* =========================================================================
-   TXT WORLDWIDE SHOP — store logic: catalog, filters, cart.
+   TXT WORLDWIDE SHOP — store logic: catalog, filters, search.
    No frameworks, no external dependencies.
    ========================================================================= */
 (function () {
@@ -13,9 +13,6 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  /* ---------- State ---------- */
-  const STORAGE_KEY = "tws_cart_v1";
-  let cart = loadCart();               // { [id]: qty }
   const state = { cat: "all", brand: null, sort: "pop", q: "" };
 
   // category -> SVG symbol id (Lucide-style line icons; no emoji)
@@ -50,7 +47,13 @@
     }
     return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=640&h=480&q=70`;
   }
-  const byId = (id) => window.PRODUCTS.find((p) => p.id === id);
+
+  // simple stable hash (no Date/Math.random) — used to pick a deterministic photo per product
+  function hash(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) { h = (h << 5) - h + str.charCodeAt(i); h |= 0; }
+    return h;
+  }
 
   /* scroll-reveal (staggered), CSS-driven, no deps */
   let revealIO;
@@ -112,7 +115,7 @@
     grid.innerHTML = list.map((p, i) => {
       const img = imgFor(p);
       return `
-      <article class="card reveal" data-id="${p.id}" style="transition-delay:${Math.min(i, 12) * 30}ms">
+      <article class="card reveal" style="transition-delay:${Math.min(i, 12) * 30}ms">
         <div class="card-media" style="--tint:${tint(p.cat)}">
           ${p.tag ? `<span class="card-tag">${esc(p.tag)}</span>` : ""}
           ${p.market ? `<span class="card-disc">−${CFG.discountPct}%</span>` : ""}
@@ -125,7 +128,7 @@
           <span class="card-rate"><svg class="ic"><use href="#ic-star"/></svg> ${(p.rating || 0).toFixed(1)}</span>
           <div class="card-foot">
             <span class="price">${p.market ? `<span class="price-old">${money(p.market)}</span>` : ""}${money(p.price)}</span>
-            <button class="add-btn" data-add="${p.id}"><svg class="ic"><use href="#ic-plus"/></svg> Add</button>
+            <a class="buy-btn" href="${p.buyUrl ? esc(p.buyUrl) : "#"}"${p.buyUrl ? ' target="_blank" rel="noopener noreferrer"' : ""}>Buy</a>
           </div>
         </div>
       </article>`;
@@ -134,87 +137,6 @@
   }
 
   function renderAll() { renderCats(); renderBrandChips(); renderGrid(); }
-
-  /* ================= CART ================= */
-  function loadCart() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-    catch { return {}; }
-  }
-  function saveCart() { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); }
-
-  const cartEntries = () => Object.keys(cart).map((id) => ({ p: byId(id), qty: cart[id] })).filter((e) => e.p);
-  const itemsTotal = () => cartEntries().reduce((s, e) => s + e.p.price * e.qty, 0);
-  const totalCount = () => Object.values(cart).reduce((s, n) => s + n, 0);
-
-  function addToCart(id) {
-    cart[id] = (cart[id] || 0) + 1;
-    saveCart(); syncCart();
-    toast("Added to cart");
-  }
-  function setQty(id, delta) {
-    cart[id] = (cart[id] || 0) + delta;
-    if (cart[id] <= 0) delete cart[id];
-    saveCart(); syncCart();
-  }
-  function removeItem(id) { delete cart[id]; saveCart(); syncCart(); }
-
-  function syncCart() {
-    const count = totalCount();
-    const badge = $("#cart-count");
-    badge.textContent = count;
-    badge.hidden = count === 0;
-
-    const entries = cartEntries();
-    const hasItems = entries.length > 0;
-    $("#cart-empty").hidden = hasItems;
-    $("#cart-foot").hidden = !hasItems;
-    $("#cart-items").hidden = !hasItems;
-
-    $("#cart-items").innerHTML = entries.map(({ p, qty }) => `
-      <div class="ci" data-id="${p.id}">
-        <div class="ci-media" style="--tint:${tint(p.cat)}">${prodIcon(p.cat)}</div>
-        <div>
-          <div class="ci-brand">${esc(p.brand)}</div>
-          <div class="ci-name">${esc(p.name)}</div>
-          <div class="ci-price">${money(p.price)} × ${qty} = <b>${money(p.price * qty)}</b></div>
-        </div>
-        <div class="ci-right">
-          <div class="qty">
-            <button data-dec="${p.id}" aria-label="Decrease"><svg class="ic"><use href="#ic-minus"/></svg></button>
-            <span>${qty}</span>
-            <button data-inc="${p.id}" aria-label="Increase"><svg class="ic"><use href="#ic-plus"/></svg></button>
-          </div>
-          <button class="ci-remove" data-remove="${p.id}"><svg class="ic"><use href="#ic-trash"/></svg> Remove</button>
-        </div>
-      </div>`).join("");
-
-    const sub = itemsTotal();
-    $("#sum-items").textContent = money(sub);
-    $("#sum-total").textContent = money(sub);
-  }
-
-  /* ================= DRAWER / MODAL control ================= */
-  const openCart  = () => { $("#cart").hidden = false; $("#overlay").hidden = false; };
-  const closeCart = () => { $("#cart").hidden = true; $("#overlay").hidden = true; };
-  // simple stable hash for the demo order number (no Date/Math.random)
-  function hash(str) {
-    let h = 0;
-    for (let i = 0; i < str.length; i++) { h = (h << 5) - h + str.charCodeAt(i); h |= 0; }
-    return h;
-  }
-
-  /* ================= TOAST ================= */
-  let toastTimer = null;
-  function toast(msg) {
-    const t = $("#toast");
-    t.innerHTML = `<svg class="ic"><use href="#ic-check"/></svg>${esc(msg)}`; t.hidden = false;
-    requestAnimationFrame(() => t.classList.add("show"));
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      t.classList.remove("show");
-      setTimeout(() => (t.hidden = true), 220);
-    }, 1600);
-  }
 
   /* ================= THEME ================= */
   function initTheme() {
@@ -230,11 +152,7 @@
 
   /* ================= EVENTS ================= */
   function bindEvents() {
-    // catalog clicks (event delegation)
     document.addEventListener("click", (e) => {
-      const add = e.target.closest("[data-add]");
-      if (add) return addToCart(add.dataset.add);
-
       const catTab = e.target.closest("[data-cat]");
       if (catTab) { state.cat = catTab.dataset.cat; state.brand = null; renderAll(); return; }
 
@@ -248,15 +166,7 @@
         document.getElementById("catalog").scrollIntoView({ behavior: "smooth" });
         return;
       }
-
-      const inc = e.target.closest("[data-inc]"); if (inc) return setQty(inc.dataset.inc, +1);
-      const dec = e.target.closest("[data-dec]"); if (dec) return setQty(dec.dataset.dec, -1);
-      const rm  = e.target.closest("[data-remove]"); if (rm) return removeItem(rm.dataset.remove);
     });
-
-    $("#open-cart").addEventListener("click", openCart);
-    $("#close-cart").addEventListener("click", closeCart);
-    $("#overlay").addEventListener("click", closeCart);
 
     $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; renderGrid(); });
 
@@ -265,20 +175,9 @@
       clearTimeout(searchTimer);
       searchTimer = setTimeout(() => { state.q = e.target.value.trim(); renderGrid(); }, 120);
     });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeCart();
-    });
   }
 
   /* ================= INIT ================= */
-  function applyConfig() {
-    document.title = `${CFG.storeName} — Gadgets, Audio & Smart Home in Hong Kong`;
-    $$("[data-store-name]").forEach((el) => (el.textContent = CFG.storeName));
-    const tag = $("[data-tagline]"); if (tag && CFG.tagline) tag.textContent = CFG.tagline;
-    $("#year").textContent = "2026";
-  }
-
   // Treat data.js prices as HK market prices; derive the discounted shelf price.
   function applyPricing() {
     const pct = Number(CFG.discountPct) || 0;
@@ -290,12 +189,18 @@
     });
   }
 
+  function applyConfig() {
+    document.title = `${CFG.storeName} — Gadgets, Audio & Smart Home in Hong Kong`;
+    $$("[data-store-name]").forEach((el) => (el.textContent = CFG.storeName));
+    const tag = $("[data-tagline]"); if (tag && CFG.tagline) tag.textContent = CFG.tagline;
+    $("#year").textContent = "2026";
+  }
+
   function init() {
     applyConfig();
     applyPricing();
     renderBrandsStrip();
     renderAll();
-    syncCart();
     initTheme();
     bindEvents();
     observeReveals();   // hero elements

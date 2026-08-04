@@ -62,11 +62,6 @@
           <svg class="ic ic-theme-moon"><use href="#ic-moon"/></svg>
           <svg class="ic ic-theme-sun"><use href="#ic-sun"/></svg>
         </button>
-        <button id="open-cart" class="cart-btn" aria-label="Cart">
-          <svg class="ic"><use href="#ic-cart"/></svg>
-          <span class="cart-label">Cart</span>
-          <span id="cart-count" class="cart-count" hidden>0</span>
-        </button>
       </div>
     </div>
   </header>
@@ -206,28 +201,6 @@
     </div>
     <div class="wrap copyright muted">© <span id="year"></span> TXT WORLDWIDE SHOP. Demo store.</div>
   </footer>
-
-  <!-- ================= CART DRAWER ================= -->
-  <div id="overlay" class="overlay" hidden></div>
-
-  <aside id="cart" class="cart-drawer" aria-label="Cart" hidden>
-    <div class="cart-top">
-      <h3>Cart</h3>
-      <button id="close-cart" class="icon-btn" aria-label="Close"><svg class="ic"><use href="#ic-x"/></svg></button>
-    </div>
-    <div id="cart-items" class="cart-items"><!-- JS --></div>
-    <div id="cart-empty" class="cart-empty">
-      <div class="cart-empty-ico"><svg class="prod-ic"><use href="#ic-cart"/></svg></div>
-      <p>Your cart is empty.<br />Add products from the catalog.</p>
-    </div>
-    <div class="cart-foot" id="cart-foot" hidden>
-      <div class="sum-row"><span>Items</span><span id="sum-items">HK$0</span></div>
-      <div class="sum-row total"><span>Total</span><span id="sum-total">HK$0</span></div>
-    </div>
-  </aside>
-
-  <!-- toast -->
-  <div id="toast" class="toast" hidden></div>
 
   <script src="config.js"></script>
   <script src="data.js"></script>

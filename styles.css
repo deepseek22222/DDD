@@ -275,6 +275,12 @@ h1, h2, h3, h4 { font-family: var(--font-head); margin: 0 0 .4em; line-height: 1
 }
 .add-btn .ic { width: 15px; height: 15px; }
 .add-btn:hover { background: var(--accent-grad); color: #0a0a12; border-color: transparent; box-shadow: var(--shadow-glow); }
+.buy-btn {
+  display: inline-flex; align-items: center; gap: .4ch; border-radius: 11px; padding: .55em 1.05em; font-weight: 600; cursor: pointer;
+  text-decoration: none; background: var(--surface-2); color: var(--text); border: 1px solid var(--border-2);
+  font-family: var(--font-body); font-size: .87rem; transition: background .2s var(--ease), color .2s, border-color .2s;
+}
+.buy-btn:hover { background: var(--accent-grad); color: #0a0a12; border-color: transparent; box-shadow: var(--shadow-glow); }
 .empty { text-align: center; color: var(--muted); padding: 70px 0; }
 
 /* ---------- Policy / warranty ---------- */
@@ -416,6 +422,12 @@ h1, h2, h3, h4 { font-family: var(--font-head); margin: 0 0 .4em; line-height: 1
   .cart-label { display: none; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 13px; }
   .field-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  /* stack price + Buy on small phones → bigger, easier tap target */
+  .card-foot { flex-direction: column; align-items: stretch; gap: 9px; }
+  .buy-btn { justify-content: center; width: 100%; padding: .7em 1em; }
+  .catalog-head { flex-wrap: wrap; }
 }
 @media (max-width: 420px) { .grid { grid-template-columns: 1fr 1fr; } .hero h1 { font-size: 2.1rem; } .prod-ic { width: 48px; height: 48px; } }
 

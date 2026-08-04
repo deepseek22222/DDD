@@ -52,10 +52,17 @@ host (GitHub Pages, Netlify, Vercel, Render Static Site, Cloudflare Pages, …):
 
 ## Ordering
 
-There is **no online payment** on the site. Checkout is an **order request**: the
-customer picks products, opens the cart, leaves their **name and phone**, and
-submits. They see an order confirmation, and you follow up to confirm payment and
-delivery off-site. No card data is collected anywhere.
+The site is a **catalog**: products with photos and prices, filters and search.
+There is no cart. Each product card has a **Buy** button next to the price.
+
+The Buy button links to a **payment page you set per product** via a `buyUrl`
+field in `data.js` (see the comment there). Point it at a real payment provider's
+**hosted page** — a **Stripe Payment Link** or a **PayPal** button — so the
+customer pays on the provider's own secure page. If a product has no `buyUrl`, its
+Buy button is inert (`#`).
+
+> Security: never point Buy at a page that collects card number / CVC itself.
+> Card entry must happen on the payment provider's secure page, not on this site.
 
 ## Product photos
 
