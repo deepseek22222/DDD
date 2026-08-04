@@ -222,80 +222,9 @@
     </div>
     <div class="cart-foot" id="cart-foot" hidden>
       <div class="sum-row"><span>Items</span><span id="sum-items">HK$0</span></div>
-      <div class="sum-row"><span>Shipping</span><span id="sum-ship">—</span></div>
       <div class="sum-row total"><span>Total</span><span id="sum-total">HK$0</span></div>
-      <button id="go-checkout" class="btn btn-primary btn-block">Checkout</button>
     </div>
   </aside>
-
-  <!-- ================= CHECKOUT MODAL ================= -->
-  <div id="checkout" class="modal" hidden>
-    <div class="modal-card">
-      <div class="modal-top">
-        <h3>Checkout</h3>
-        <button id="close-checkout" class="icon-btn" aria-label="Close"><svg class="ic"><use href="#ic-x"/></svg></button>
-      </div>
-
-      <form id="checkout-form" class="checkout-form" novalidate>
-        <!-- Step 1 — Payment method -->
-        <section class="co-section">
-          <h4 class="co-title"><span class="step-num">1</span> Payment</h4>
-          <div class="pay-methods">
-            <label class="pay-method">
-              <input type="radio" name="method" value="card" checked />
-              <svg class="ic pm-ico"><use href="#ic-card"/></svg>
-              <span class="pm-text"><b>Credit / Debit card</b><small>Visa · Mastercard · Amex · UnionPay</small></span>
-              <span class="pm-secure"><svg class="ic"><use href="#ic-lock"/></svg> Stripe</span>
-            </label>
-            <label class="pay-method">
-              <input type="radio" name="method" value="paypal" />
-              <svg class="ic pm-ico"><use href="#ic-wallet"/></svg>
-              <span class="pm-text"><b>PayPal</b><small>Pay with your PayPal account</small></span>
-            </label>
-          </div>
-          <div class="pay-note" id="pay-note"><!-- JS: payment connection status --></div>
-        </section>
-
-        <!-- Step 2 — Delivery details -->
-        <section class="co-section">
-          <h4 class="co-title"><span class="step-num">2</span> Delivery details</h4>
-          <div class="field-grid">
-            <label class="field"><span>Full name *</span>
-              <input name="name" required autocomplete="name" placeholder="Chan Tai Man" /></label>
-            <label class="field"><span>Phone *</span>
-              <input name="phone" required autocomplete="tel" placeholder="+852 ..." /></label>
-            <label class="field field-wide"><span>Email *</span>
-              <input name="email" type="email" required autocomplete="email" placeholder="you@email.com" /></label>
-            <label class="field field-wide"><span>Delivery address *</span>
-              <input name="address" required autocomplete="street-address" placeholder="Street, building, flat" /></label>
-            <label class="field"><span>District / city *</span>
-              <input name="city" required autocomplete="address-level2" placeholder="Kowloon" /></label>
-            <label class="field"><span>Shipping method</span>
-              <select name="shipping">
-                <option value="standard">Standard (1–3 days)</option>
-                <option value="express">Express (same day)</option>
-                <option value="pickup">Pickup</option>
-              </select></label>
-            <label class="field field-wide"><span>Order note</span>
-              <input name="note" placeholder="Optional" /></label>
-          </div>
-        </section>
-
-        <div class="order-mini" id="order-mini"><!-- JS --></div>
-
-        <button type="submit" id="pay-btn" class="btn btn-primary btn-block">Pay by card</button>
-        <p class="secure-line"><svg class="ic"><use href="#ic-lock"/></svg> The card is entered on the provider's secure page (Stripe). Card details are never entered or stored on this site.</p>
-      </form>
-
-      <!-- Success screen -->
-      <div id="order-success" class="order-success" hidden>
-        <div class="success-ico"><svg class="prod-ic"><use href="#ic-check"/></svg></div>
-        <h3>Order placed!</h3>
-        <p id="success-text" class="muted"></p>
-        <button id="success-close" class="btn btn-primary">Great</button>
-      </div>
-    </div>
-  </div>
 
   <!-- toast -->
   <div id="toast" class="toast" hidden></div>

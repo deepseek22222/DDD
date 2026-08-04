@@ -14,7 +14,7 @@ responsive, light/dark theme.
 
 - Catalog of 50+ products, filter by category and brand, search and sorting
 - Cart with localStorage persistence, totals, and free-shipping threshold
-- Checkout with **payment first** (Stripe/PayPal on the provider's secure page), then delivery
+- Order-request checkout: customer leaves name + phone, you confirm the order
 - Discounted pricing with a struck-through market price and a discount badge
 - Product photos with an automatic SVG fallback
 - 3-year worldwide warranty messaging (hero, trust band, and policy section)
@@ -50,42 +50,12 @@ host (GitHub Pages, Netlify, Vercel, Render Static Site, Cloudflare Pages, …):
   publish directory to `.` and leave the build command empty. A `render.yaml`
   blueprint is included for Render.
 
-## Payments (owner setup)
+## Ordering
 
-The storefront **never collects card number / CVC** — the card is entered on the
-payment provider's secure hosted page. This keeps you out of PCI-DSS scope.
-Demo mode (default) places test orders without charging. To enable real payments,
-host a small endpoint that creates a Stripe Checkout Session and set its URL in
-`config.js → payments.checkoutEndpoint`.
-
-<details>
-<summary>Example Stripe endpoint (Node.js)</summary>
-
-```js
-const express = require("express");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // secret stays server-side
-const app = express(); app.use(express.json());
-
-app.post("/create-checkout", async (req, res) => {
-  const order = req.body;
-  const line_items = order.items.map((it) => ({
-    price_data: {
-      currency: order.currency.toLowerCase(),
-      product_data: { name: `${it.brand} ${it.name}` },
-      unit_amount: it.price * 100,
-    },
-    quantity: it.qty,
-  }));
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment", line_items,
-    success_url: "https://your-site.example/success",
-    cancel_url:  "https://your-site.example/",
-  });
-  res.json({ url: session.url });
-});
-app.listen(process.env.PORT || 4242);
-```
-</details>
+There is **no online payment** on the site. Checkout is an **order request**: the
+customer picks products, opens the cart, leaves their **name and phone**, and
+submits. They see an order confirmation, and you follow up to confirm payment and
+delivery off-site. No card data is collected anywhere.
 
 ## Product photos
 
@@ -108,7 +78,7 @@ struck through and computes the discounted price from `discountPct` in `config.j
 ## Before going live
 
 - Replace placeholder photos with licensed product images.
-- Connect real payments (Stripe/PayPal) and email order confirmation.
+- Optionally add a payment provider and email order confirmation.
 - Add legal pages: shipping, returns, privacy, terms.
 
 ## License
