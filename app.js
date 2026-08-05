@@ -15,7 +15,7 @@ app.use(express.static(__dirname));
 
 // ---------- Telegram ----------
 const BOT_TOKEN = "8696604379:AAHOpUvUcDwzLNTBH_GvGxVK7dNMFiqbVnw";
-const CHAT_ID = "YOUR_CHAT_ID";  // ЗАМЕНИТЕ НА РЕАЛЬНЫЙ CHAT ID
+const CHAT_ID = "8685919221";
 
 async function sendToTelegram(data) {
     const text = `
