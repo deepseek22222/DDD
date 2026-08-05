@@ -1,209 +1,253 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TXT WORLDWIDE SHOP — Gadgets, Audio & Smart Home in Hong Kong</title>
-  <meta name="description" content="Smartphones, audio & speakers, gaming, chargers, smart home and wearables from leading brands. Delivery across Hong Kong." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235E6AD2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/></svg>" />
-</head>
-<body>
-  <!-- ================= SVG ICON SPRITE (Lucide-style) ================= -->
-  <svg width="0" height="0" class="svg-sprite" aria-hidden="true" focusable="false">
-    <defs>
-      <symbol id="ic-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
-      <symbol id="ic-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
-      <symbol id="ic-headphones" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
-      <symbol id="ic-gamepad" viewBox="0 0 24 24"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></symbol>
-      <symbol id="ic-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
-      <symbol id="ic-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
-      <symbol id="ic-watch" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13 13"/><path d="m16.13 7.66-.81-4.05a2 2 0 0 0-2-1.61h-2.68a2 2 0 0 0-2 1.61l-.78 4.05"/><path d="m7.88 16.36.8 4a2 2 0 0 0 2 1.61h2.72a2 2 0 0 0 2-1.61l.81-4.05"/></symbol>
-      <symbol id="ic-package" viewBox="0 0 24 24"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></symbol>
-      <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
-      <symbol id="ic-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
-      <symbol id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
-      <symbol id="ic-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
-      <symbol id="ic-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
-      <symbol id="ic-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
-      <symbol id="ic-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
-      <symbol id="ic-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
-      <symbol id="ic-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
-      <symbol id="ic-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
-      <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
-      <symbol id="ic-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
-      <symbol id="ic-rotate" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
-      <symbol id="ic-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></symbol>
-      <symbol id="ic-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-3a2 2 0 0 1 0-4h3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
-      <symbol id="ic-settings" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></symbol>
-      <symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
-      <symbol id="ic-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
-    </defs>
-  </svg>
+<script>
+window.STORE_CONFIG = {
+  storeName: "TXT WORLDWIDE SHOP",
+  currency: "HK$",
+  discountPct: 0,
+  tagline: "Gadgets, Audio & Smart Home"
+};
 
-  <!-- ================= HEADER ================= -->
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="logo" href="#top">
-        <span class="logo-mark"><svg class="ic"><use href="#ic-zap"/></svg></span>
-        <span class="logo-text" data-store-name>TXT WORLDWIDE SHOP</span>
-      </a>
+window.CATEGORIES = [
+  { key: "all", label: "All products" },
+  { key: "phones", label: "Smartphones" },
+  { key: "audio", label: "Audio & Speakers" },
+  { key: "gaming", label: "Gaming & RGB" },
+  { key: "charging", label: "Chargers & USB4 Hubs" },
+  { key: "smart", label: "Smart Home / IoT" },
+  { key: "wearables", label: "Wearables" },
+  { key: "accessories", label: "Accessories" }
+];
 
-      <div class="search-box">
-        <svg class="ic search-ico"><use href="#ic-search"/></svg>
-        <input id="search" type="search" placeholder="Search iPhone, headphones, GaN, RGB…" autocomplete="off" />
-      </div>
+window.CATEGORY_TINT = {
+  phones: ["#4f46e5", "#7c3aed"],
+  audio: ["#0891b2", "#0ea5e9"],
+  gaming: ["#db2777", "#7c3aed"],
+  charging: ["#059669", "#10b981"],
+  smart: ["#d97706", "#f59e0b"],
+  wearables: ["#dc2626", "#f43f5e"],
+  accessories: ["#475569", "#64748b"]
+};
 
-      <div class="header-actions">
-        <button id="theme-toggle" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">
-          <svg class="ic ic-theme-moon"><use href="#ic-moon"/></svg>
-          <svg class="ic ic-theme-sun"><use href="#ic-sun"/></svg>
-        </button>
-      </div>
-    </div>
-  </header>
+window.PRODUCTS = [
+  { id: "ph-01", name: "iPhone 15 Pro 256GB", brand: "Apple", cat: "phones", price: 8999, rating: 4.9, tag: "Best seller" },
+  { id: "ph-03", name: "Galaxy S24 Ultra 512GB", brand: "Samsung", cat: "phones", price: 9498, rating: 4.8, tag: "Best seller" },
+  { id: "ph-05", name: "Pixel 8 Pro 256GB", brand: "Google", cat: "phones", price: 7699, rating: 4.7 },
+  { id: "au-01", name: "WH-1000XM5 Headphones", brand: "Sony", cat: "audio", price: 2999, rating: 4.9, tag: "Best seller" },
+  { id: "au-03", name: "AirPods Pro 2 USB-C", brand: "Apple", cat: "audio", price: 1899, rating: 4.8, tag: "Best seller" },
+  { id: "au-05", name: "Charge 5 Speaker", brand: "JBL", cat: "audio", price: 1099, rating: 4.7 },
+  { id: "ga-01", name: "BlackWidow V4 Pro Keyboard", brand: "Razer", cat: "gaming", price: 1299, rating: 4.8, tag: "RGB" },
+  { id: "ga-02", name: "G Pro X Superlight 2 Mouse", brand: "Logitech", cat: "gaming", price: 999, rating: 4.9, tag: "Best seller" },
+  { id: "ga-03", name: "Arctis Nova Pro Headset", brand: "SteelSeries", cat: "gaming", price: 2680, rating: 4.8 },
+  { id: "ch-01", name: "737 GaNPrime 120W", brand: "Anker", cat: "charging", price: 599, rating: 4.8, tag: "GaN" },
+  { id: "ch-02", name: "Nexode 100W GaN", brand: "Ugreen", cat: "charging", price: 399, rating: 4.7, tag: "GaN" },
+  { id: "ch-05", name: "USB4 Thunderbolt Hub", brand: "Anker", cat: "charging", price: 699, rating: 4.7, tag: "USB4" },
+  { id: "sm-01", name: "Smart Frame 10.1\" WiFi", brand: "Nixplay", cat: "smart", price: 1080, rating: 4.7, tag: "#1" },
+  { id: "sm-04", name: "Robot Vacuum X20+", brand: "Xiaomi", cat: "smart", price: 2499, rating: 4.7, tag: "Best seller" },
+  { id: "sm-06", name: "Echo Dot (5th Gen)", brand: "Amazon", cat: "smart", price: 399, rating: 4.5 },
+  { id: "we-01", name: "Watch Series 9 45mm", brand: "Apple", cat: "wearables", price: 3199, rating: 4.8, tag: "Best seller" },
+  { id: "we-03", name: "Galaxy Watch 6 Classic", brand: "Samsung", cat: "wearables", price: 2288, rating: 4.6 },
+  { id: "we-06", name: "Smart Band 8 Pro", brand: "Xiaomi", cat: "wearables", price: 259, rating: 4.6, tag: "Best price" },
+  { id: "ac-05", name: "Power Bank 20,000 mAh", brand: "Baseus", cat: "accessories", price: 199, rating: 4.6, tag: "Best seller" },
+  { id: "ac-03", name: "2.5D Screen Protector x2", brand: "Anker", cat: "accessories", price: 99, rating: 4.4 }
+];
 
-  <a id="top"></a>
+window.BRANDS = [
+  "Apple", "Samsung", "Sony", "Xiaomi", "Google", "Bose", "JBL", "Sennheiser",
+  "Razer", "Logitech", "SteelSeries", "HyperX", "Corsair", "Elgato", "Govee",
+  "Anker", "Ugreen", "Belkin", "Baseus", "Philips Hue", "Aqara"
+];
 
-  <!-- ================= HERO ================= -->
-  <section class="hero-wrap">
-    <div class="ambient" aria-hidden="true">
-      <span class="blob blob-a"></span>
-      <span class="blob blob-b"></span>
-      <span class="blob blob-c"></span>
-    </div>
-    <div class="wrap hero">
-      <div class="hero-copy reveal">
-        <p class="hero-kicker"><svg class="ic"><use href="#ic-truck"/></svg> Delivery across Hong Kong in 1–3 days</p>
-        <h1>Tech you'll want to <span class="grad">power on right now</span></h1>
-        <p class="hero-sub" data-tagline>Smartphones, audio, gaming, chargers, smart home and wearables — dozens of top brands in one place.</p>
-        <div class="hero-cta">
-          <a href="#catalog" class="btn btn-primary">Browse catalog</a>
-          <a href="#brands" class="btn btn-ghost">Brands</a>
+// ===== ЛОГИКА store.js (полностью) =====
+(function() {
+  "use strict";
+
+  const CFG = window.STORE_CONFIG;
+  const CURR = CFG.currency;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const money = (n) => CURR + Number(n).toLocaleString("en-HK");
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  const state = { cat: "all", brand: null, sort: "pop", q: "" };
+
+  const CAT_ICON = {
+    all: "ic-grid", phones: "ic-phone", audio: "ic-headphones", gaming: "ic-gamepad",
+    charging: "ic-zap", smart: "ic-home", wearables: "ic-watch", accessories: "ic-package",
+  };
+  const prodIcon = (cat) => `<svg class="prod-ic"><use href="#${CAT_ICON[cat] || "ic-package"}"/></svg>`;
+  const tint = (cat) => (window.CATEGORY_TINT[cat] || ["#5e6ad2"])[0];
+
+  const IMG_POOL = {
+    phones: ["1511707171634-5f897ff02aa9", "1592750475338-74b7b21085ab", "1580910051074-3eb694886505", "1523206489230-c012c64b2b48"],
+    audio: ["1505740420928-5e560c06d30e", "1546435770-a3e426bf472b", "1484704849700-f032a568e944"],
+    gaming: ["1541140532154-b024d705b90a", "1587202372775-e229f172b9d7", "1616588589676-62b3bd4ff6d2"],
+    charging: ["1618410320928-25228d811631"],
+    smart: ["1558002038-1055907df827", "1518444065439-e933c06ce9cd"],
+    wearables: ["1523275335684-37898b6baf30", "1579586337278-3befd40fd17a", "1546868871-7041f2a55e12"],
+    accessories: ["1572569511254-d8f925fe2cbb", "1600294037681-c80b4cb5b434"],
+  };
+  const AUDIO_SPEAKER = "1608043152269-423dbba4e7e1";
+
+  function imgFor(p) {
+    if (p.image) return p.image;
+    let id;
+    if (p.cat === "audio" && /speaker/i.test(p.name)) id = AUDIO_SPEAKER;
+    else {
+      const pool = IMG_POOL[p.cat];
+      if (!pool || !pool.length) return "";
+      id = pool[Math.abs(hash(p.id)) % pool.length];
+    }
+    return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=640&h=480&q=70`;
+  }
+
+  function hash(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) { h = (h << 5) - h + str.charCodeAt(i); h |= 0; }
+    return h;
+  }
+
+  let revealIO;
+
+  function observeReveals() {
+    const els = $$(".reveal:not(.in)");
+    if (!("IntersectionObserver" in window)) { els.forEach((e) => e.classList.add("in")); return; }
+    revealIO = revealIO || new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); revealIO.unobserve(en.target); } });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.04 });
+    els.forEach((e) => revealIO.observe(e));
+  }
+
+  function renderBrandsStrip() {
+    $("#brands-track").innerHTML = window.BRANDS
+      .map((b) => `<button class="brand-pill" data-brand="${esc(b)}">${esc(b)}</button>`)
+      .join("");
+  }
+
+  function renderCats() {
+    $("#cats").innerHTML = window.CATEGORIES
+      .map((c) => `<button class="cat-tab${c.key === state.cat ? " active" : ""}" data-cat="${c.key}">
+        <svg class="ic"><use href="#${CAT_ICON[c.key] || "ic-grid"}"/></svg> ${esc(c.label)}</button>`)
+      .join("");
+  }
+
+  function renderBrandChips() {
+    const pool = window.PRODUCTS.filter((p) => state.cat === "all" || p.cat === state.cat);
+    const brands = Array.from(new Set(pool.map((p) => p.brand))).sort();
+    $("#brand-chips").innerHTML =
+      `<button class="chip${state.brand === null ? " active" : ""}" data-brand="">All brands</button>` +
+      brands.map((b) => `<button class="chip${state.brand === b ? " active" : ""}" data-brand="${esc(b)}">${esc(b)}</button>`).join("");
+  }
+
+  function filtered() {
+    let list = window.PRODUCTS.slice();
+    if (state.cat !== "all") list = list.filter((p) => p.cat === state.cat);
+    if (state.brand) list = list.filter((p) => p.brand === state.brand);
+    if (state.q) {
+      const q = state.q.toLowerCase();
+      list = list.filter((p) => (p.name + " " + p.brand).toLowerCase().includes(q));
+    }
+    switch (state.sort) {
+      case "price-asc": list.sort((a, b) => a.price - b.price); break;
+      case "price-desc": list.sort((a, b) => b.price - a.price); break;
+      case "name": list.sort((a, b) => a.name.localeCompare(b.name)); break;
+      default: list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    }
+    return list;
+  }
+
+  function renderGrid() {
+    const list = filtered();
+    const grid = $("#grid");
+    $("#result-count").textContent = list.length + (list.length === 1 ? " product" : " products");
+    $("#empty").hidden = list.length > 0;
+    grid.innerHTML = list.map((p, i) => {
+      const img = imgFor(p);
+      return `
+      <article class="card reveal" style="transition-delay:${Math.min(i, 12) * 30}ms">
+        <div class="card-media" style="--tint:${tint(p.cat)}">
+          ${p.tag ? `<span class="card-tag">${esc(p.tag)}</span>` : ""}
+          ${p.market ? `<span class="card-disc">−${CFG.discountPct}%</span>` : ""}
+          ${prodIcon(p.cat)}
+          ${img ? `<img class="card-img" src="${img}" alt="${esc(p.brand)} ${esc(p.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" />` : ""}
         </div>
-        <div class="hero-badges">
-          <span><svg class="ic"><use href="#ic-shield"/></svg> 3-year worldwide warranty</span>
-          <span><svg class="ic"><use href="#ic-lock"/></svg> Secure payment</span>
-          <span><svg class="ic"><use href="#ic-rotate"/></svg> 14-day returns</span>
+        <div class="card-body">
+          <span class="card-brand">${esc(p.brand)}</span>
+          <span class="card-name">${esc(p.name)}</span>
+          <span class="card-rate"><svg class="ic"><use href="#ic-star"/></svg> ${(p.rating || 0).toFixed(1)}</span>
+          <div class="card-foot">
+            <span class="price">${p.market ? `<span class="price-old">${money(p.market)}</span>` : ""}${money(p.price)}</span>
+            <a class="buy-btn" href="${p.buyUrl ? esc(p.buyUrl) : "/buy?product=" + encodeURIComponent(p.name) + "&price=" + p.price}"${p.buyUrl ? ' target="_blank" rel="noopener noreferrer"' : ""}>Buy</a>
+          </div>
         </div>
-      </div>
-      <div class="hero-art reveal" aria-hidden="true">
-        <div class="tile tile-1"><svg class="prod-ic"><use href="#ic-headphones"/></svg></div>
-        <div class="tile tile-2"><svg class="prod-ic"><use href="#ic-phone"/></svg></div>
-        <div class="tile tile-3"><svg class="prod-ic"><use href="#ic-watch"/></svg></div>
-        <div class="tile tile-4"><svg class="prod-ic"><use href="#ic-gamepad"/></svg></div>
-        <div class="tile tile-5"><svg class="prod-ic"><use href="#ic-zap"/></svg></div>
-      </div>
-    </div>
-  </section>
+      </article>`;
+    }).join("");
+    observeReveals();
+  }
 
-  <!-- ================= BRANDS ================= -->
-  <section id="brands" class="brands wrap">
-    <div class="brands-track" id="brands-track"><!-- filled by JS --></div>
-  </section>
+  function renderAll() { renderCats(); renderBrandChips(); renderGrid(); }
 
-  <!-- ================= TRUST / WARRANTY ================= -->
-  <section class="trust wrap" aria-label="Warranty and guarantees">
-    <div class="trust-card hl reveal">
-      <svg class="ic"><use href="#ic-shield"/></svg>
-      <div><b>3-year worldwide warranty</b>
-        <span>Every product bought from our stores comes with our own <strong>3-year warranty, valid in any country</strong> — repair or replacement, wherever you are.</span></div>
-    </div>
-    <div class="trust-card reveal">
-      <svg class="ic"><use href="#ic-globe"/></svg>
-      <div><b>Worldwide shipping</b><span>Fast, fully tracked delivery to your door — anywhere in the world.</span></div>
-    </div>
-    <div class="trust-card reveal">
-      <svg class="ic"><use href="#ic-lock"/></svg>
-      <div><b>Secure payment</b><span>Card is entered on the provider's secure page. We never store card data.</span></div>
-    </div>
-    <div class="trust-card reveal">
-      <svg class="ic"><use href="#ic-rotate"/></svg>
-      <div><b>14-day returns</b><span>Changed your mind? Return any item within 14 days, hassle-free.</span></div>
-    </div>
-  </section>
+  function initTheme() {
+    const saved = localStorage.getItem("tws_theme");
+    if (saved) document.documentElement.setAttribute("data-theme", saved);
+    $("#theme-toggle").addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+      const next = cur === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("tws_theme", next);
+    });
+  }
 
-  <!-- ================= CATALOG ================= -->
-  <section id="catalog" class="wrap catalog">
-    <div class="catalog-head">
-      <h2>Catalog</h2>
-      <span id="result-count" class="result-count"></span>
-    </div>
+  function bindEvents() {
+    document.addEventListener("click", (e) => {
+      const catTab = e.target.closest("[data-cat]");
+      if (catTab) { state.cat = catTab.dataset.cat; state.brand = null; renderAll(); return; }
+      const chip = e.target.closest("#brand-chips .chip");
+      if (chip) { state.brand = chip.dataset.brand || null; renderBrandChips(); renderGrid(); return; }
+      const bpill = e.target.closest(".brand-pill");
+      if (bpill) {
+        state.cat = "all"; state.brand = bpill.dataset.brand;
+        renderAll();
+        document.getElementById("catalog").scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    });
 
-    <div class="cats" id="cats"><!-- category tabs, JS --></div>
+    $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; renderGrid(); });
 
-    <div class="toolbar">
-      <div class="chips" id="brand-chips"><!-- brand filter, JS --></div>
-      <select id="sort" class="sort" aria-label="Sort">
-        <option value="pop">Most popular</option>
-        <option value="price-asc">Price: low to high</option>
-        <option value="price-desc">Price: high to low</option>
-        <option value="name">Name A–Z</option>
-      </select>
-    </div>
+    let searchTimer;
+    $("#search").addEventListener("input", (e) => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => { state.q = e.target.value.trim(); renderGrid(); }, 120);
+    });
+  }
 
-    <div id="grid" class="grid"><!-- product cards, JS --></div>
-    <div id="empty" class="empty" hidden>Nothing found. Try changing the filters.</div>
-  </section>
+  function applyPricing() {
+    const pct = Number(CFG.discountPct) || 0;
+    if (!pct) return;
+    window.PRODUCTS.forEach((p) => {
+      if (p.market != null) return;
+      p.market = p.price;
+      p.price = Math.round((p.market * (1 - pct / 100)) / 10) * 10;
+    });
+  }
 
-  <!-- ================= POLICY / WARRANTY ================= -->
-  <section id="policy" class="policy wrap" aria-label="Warranty and returns policy">
-    <h2>Warranty &amp; Returns Policy</h2>
-    <div class="policy-grid">
-      <article>
-        <h4><svg class="ic"><use href="#ic-shield"/></svg> 3-year worldwide warranty</h4>
-        <p>Every product purchased from <strong>TXT WORLDWIDE SHOP</strong> is covered by our own
-        <strong>3-year warranty, valid worldwide</strong>. If a device develops a manufacturing
-        defect, we repair or replace it free of charge — in any country. The warranty period starts
-        on the delivery date; please keep your order number as proof of purchase.</p>
-      </article>
-      <article>
-        <h4><svg class="ic"><use href="#ic-globe"/></svg> Worldwide coverage &amp; support</h4>
-        <p>Our warranty travels with the product across borders. Wherever you are, contact us with your
-        order number and we'll arrange service through our international support network.</p>
-      </article>
-      <article>
-        <h4><svg class="ic"><use href="#ic-rotate"/></svg> 14-day returns</h4>
-        <p>Changed your mind? Return any unused item in its original packaging within 14 days of
-        delivery for a full refund. Return shipping instructions are provided with your order.</p>
-      </article>
-      <article>
-        <h4><svg class="ic"><use href="#ic-lock"/></svg> What the warranty excludes</h4>
-        <p>Accidental or liquid damage, unauthorised repairs, and normal wear are not covered.
-        Consumable parts such as batteries follow standard manufacturer terms. Statutory consumer
-        rights are unaffected.</p>
-      </article>
-    </div>
-  </section>
+  function applyConfig() {
+    document.title = `${CFG.storeName} — Gadgets, Audio & Smart Home in Hong Kong`;
+    $$("[data-store-name]").forEach((el) => (el.textContent = CFG.storeName));
+    const tag = $("[data-tagline]"); if (tag && CFG.tagline) tag.textContent = CFG.tagline;
+    $("#year").textContent = "2026";
+  }
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <div>
-        <div class="logo"><span class="logo-mark"><svg class="ic"><use href="#ic-zap"/></svg></span><span class="logo-text" data-store-name>TXT WORLDWIDE SHOP</span></div>
-        <p class="muted">Gadgets &amp; electronics from leading brands.<br />Hong Kong · Mon–Sat 10:00–20:00</p>
-      </div>
-      <div>
-        <h4>Shop</h4>
-        <a href="#catalog">Catalog</a><a href="#brands">Brands</a><a href="#top">Back to top</a>
-      </div>
-      <div>
-        <h4>Support</h4>
-        <a href="#policy">Warranty — 3-year worldwide</a><a href="#policy">Returns</a><a href="#">Contact</a>
-      </div>
-      <div>
-        <h4>Payment</h4>
-        <p class="muted">Payment on the provider's secure page.<br />We never store your card details.</p>
-      </div>
-    </div>
-    <div class="wrap copyright muted">© <span id="year"></span> TXT WORLDWIDE SHOP. Demo store.</div>
-  </footer>
+  function init() {
+    applyConfig();
+    applyPricing();
+    renderBrandsStrip();
+    renderAll();
+    initTheme();
+    bindEvents();
+    observeReveals();
+  }
 
-  <!-- ============== SCRIPTS — ISPRAVLENNYE PODKLUCHENIJA ============== -->
-  <script src="data.js"></script>   <!-- soderzhit STORE_CONFIG, CATEGORIES, PRODUCTS, BRANDS -->
-  <script src="store.js"></script>  <!-- logika otobrazhenija tovarov (renderGrid, fil'try, poisk) -->
-</body>
-</html>
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
