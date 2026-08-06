@@ -3,162 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | Digital Goods</title>
+    <title>Digital Store</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #0b0d15;
-            color: #fff;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #252b3b;
-            margin-bottom: 40px;
-        }
-        header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-        header nav a {
-            color: #8b8fa3;
-            text-decoration: none;
-            margin-left: 30px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        header nav a:hover {
-            color: #fff;
-        }
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .product-card {
-            background: #141824;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid #2a2f3f;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.6);
-        }
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: #1e2332;
-        }
-        .product-info {
-            padding: 20px;
-        }
-        .product-info h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        .product-info p {
-            color: #8b8fa3;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        .price {
-            font-size: 24px;
-            font-weight: 700;
-            color: #6c7bff;
-            margin-bottom: 20px;
-        }
-        .buy-btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #6c7bff, #4b5bdb);
-            border: none;
-            border-radius: 14px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .buy-btn:hover {
-            box-shadow: 0 8px 20px rgba(108, 123, 255, 0.4);
-            transform: scale(1.02);
-        }
-        footer {
-            margin-top: 60px;
-            text-align: center;
-            color: #5b617a;
-            font-size: 14px;
-            padding: 20px 0;
-            border-top: 1px solid #252b3b;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0b0d15; color: #fff; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #252b3b; margin-bottom: 30px; }
+        header h1 { font-size: 28px; }
+        .cart-icon { cursor: pointer; font-size: 24px; position: relative; }
+        .cart-count { position: absolute; top: -10px; right: -10px; background: #6c7bff; color: #fff; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background: #141824; border-radius: 16px; border: 1px solid #2a2f3f; overflow: hidden; transition: 0.2s; }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .product-card img { width: 100%; height: 180px; object-fit: cover; background: #1e2332; }
+        .product-info { padding: 15px; }
+        .product-info h3 { font-size: 18px; margin-bottom: 8px; }
+        .product-info p { color: #8b8fa3; font-size: 13px; margin-bottom: 10px; }
+        .price { font-size: 22px; font-weight: 700; color: #6c7bff; margin-bottom: 15px; }
+        .add-to-cart { width: 100%; padding: 12px; background: linear-gradient(135deg, #6c7bff, #4b5bdb); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .add-to-cart:hover { box-shadow: 0 8px 20px rgba(108,123,255,0.4); }
+        .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .cart-modal.active { display: flex; }
+        .cart-content { background: #141824; border: 1px solid #2a2f3f; border-radius: 20px; padding: 30px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
+        .cart-content h2 { margin-bottom: 20px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #252b3b; padding: 10px 0; }
+        .cart-item span { flex: 1; }
+        .cart-item button { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 18px; }
+        .total { font-size: 20px; font-weight: bold; margin: 20px 0; }
+        .checkout-btn { display: block; width: 100%; padding: 14px; background: #6c7bff; border: none; border-radius: 12px; color: #fff; font-size: 18px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; }
+        .close-cart { background: transparent; border: 1px solid #555; color: #ccc; padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+        footer { margin-top: 50px; text-align: center; color: #5b617a; padding: 20px 0; border-top: 1px solid #252b3b; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>⚡ Digital Store</h1>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/">Products</a>
-                <a href="/">Support</a>
-            </nav>
-        </header>
-
-        <div class="products">
-            <div class="product-card">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='200' fill='%231e2332'%3E%3Crect width='100%25' height='100%25'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235b617a' font-size='16'%3ENetflix 1 Month%3C/text%3E%3C/svg%3E" alt="Netflix">
-                <div class="product-info">
-                    <h3>Netflix Premium 1 Month</h3>
-                    <p>4K quality, all regions, instant delivery</p>
-                    <div class="price">499 RUB</div>
-                    <a href="/buy?product=Netflix+Premium+1+Month&price=499" class="buy-btn">Buy Now</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='200' fill='%231e2332'%3E%3Crect width='100%25' height='100%25'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235b617a' font-size='16'%3ESpotify 1 Year%3C/text%3E%3C/svg%3E" alt="Spotify">
-                <div class="product-info">
-                    <h3>Spotify Premium 1 Year</h3>
-                    <p>Ad-free music, offline mode</p>
-                    <div class="price">899 RUB</div>
-                    <a href="/buy?product=Spotify+Premium+1+Year&price=899" class="buy-btn">Buy Now</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='200' fill='%231e2332'%3E%3Crect width='100%25' height='100%25'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%235b617a' font-size='16'%3EPS Plus 3 Months%3C/text%3E%3C/svg%3E" alt="PS Plus">
-                <div class="product-info">
-                    <h3>PlayStation Plus 3 Months</h3>
-                    <p>Online multiplayer, free games monthly</p>
-                    <div class="price">1 199 RUB</div>
-                    <a href="/buy?product=PS+Plus+3+Months&price=1199" class="buy-btn">Buy Now</a>
-                </div>
-            </div>
+<div class="container">
+    <header>
+        <h1>⚡ Digital Store</h1>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span class="cart-count" id="cartCount">0</span>
         </div>
+    </header>
 
-        <footer>
-            © 2024 Digital Store. All transactions are secure and encrypted.
-        </footer>
+    <div class="products" id="productList"></div>
+
+    <!-- Корзина модальное окно -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <h2>Your Cart</h2>
+            <div id="cartItems"></div>
+            <div class="total" id="cartTotal">Total: 0 RUB</div>
+            <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+            <button class="close-cart" onclick="toggleCart()">Close</button>
+        </div>
     </div>
+
+    <footer>© 2024 Digital Store. Secure payments.</footer>
+</div>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // загружаем товары с сервера
+    async function loadProducts() {
+        const res = await fetch('/api/products');
+        const products = await res.json();
+        const container = document.getElementById('productList');
+        container.innerHTML = products.map(p => `
+            <div class="product-card">
+                <img src="/static/images/${p.image}" alt="${p.name}" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%25%22 height=%22180%22 fill=%22%231e2332%22%3E%3Crect width=%22100%25%22 height=%22100%25%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%235b617a%22 font-size=%2216%22%3E${p.name}%3C/text%3E%3C/svg%3E';">
+                <div class="product-info">
+                    <h3>${p.name}</h3>
+                    <div class="price">${p.price} RUB</div>
+                    <button class="add-to-cart" onclick="addToCart(${p.id}, '${p.name}', ${p.price})">Add to Cart</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function addToCart(id, name, price) {
+        const existing = cart.find(item => item.id === id);
+        if (existing) {
+            existing.qty++;
+        } else {
+            cart.push({ id, name, price, qty: 1 });
+        }
+        saveCart();
+        updateCartUI();
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== id);
+        saveCart();
+        updateCartUI();
+        renderCart();
+    }
+
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function updateCartUI() {
+        const count = cart.reduce((sum, item) => sum + item.qty, 0);
+        document.getElementById('cartCount').textContent = count;
+    }
+
+    function renderCart() {
+        const itemsDiv = document.getElementById('cartItems');
+        const totalDiv = document.getElementById('cartTotal');
+        if (cart.length === 0) {
+            itemsDiv.innerHTML = '<p>Cart is empty.</p>';
+            totalDiv.textContent = 'Total: 0 RUB';
+            return;
+        }
+        let total = 0;
+        itemsDiv.innerHTML = cart.map(item => {
+            total += item.price * item.qty;
+            return `<div class="cart-item">
+                <span>${item.name} x ${item.qty}</span>
+                <span>${item.price * item.qty} RUB</span>
+                <button onclick="removeFromCart(${item.id})">✕</button>
+            </div>`;
+        }).join('');
+        totalDiv.textContent = `Total: ${total} RUB`;
+    }
+
+    function toggleCart() {
+        document.getElementById('cartModal').classList.toggle('active');
+        renderCart();
+    }
+
+    function goToCheckout() {
+        if (cart.length === 0) return alert('Cart is empty');
+        const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+        const productsParam = cart.map(item => `${item.name} x${item.qty}`).join(', ');
+        // передаём в checkout.html через query string
+        window.location.href = `/checkout?total=${total}&products=${encodeURIComponent(productsParam)}`;
+    }
+
+    window.onload = () => {
+        loadProducts();
+        updateCartUI();
+    };
+</script>
 </body>
 </html>
