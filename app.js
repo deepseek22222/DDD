@@ -66,18 +66,18 @@ const seed = () => {
   const getCat = (n) => db.prepare('SELECT id FROM categories WHERE name=?').get(n)?.id;
   const insertProd = db.prepare('INSERT INTO products (name,description,price,image,category_id) VALUES (?,?,?,?,?)');
   const prods = [
-    ['iPhone 15 Pro 128GB', 'Apple A17 Pro, 6.1"', 1299, '/images/iphone15.jpg', 'smartphones'],
-    ['Samsung Galaxy S24 Ultra', 'Snapdragon 8 Gen 3, 256GB', 1399, '/images/s24ultra.jpg', 'smartphones'],
-    ['Xiaomi 14 Pro', 'Snapdragon 8 Gen 3, 512GB', 999, '/images/xiaomi14.jpg', 'smartphones'],
-    ['MacBook Air M2', '8GB/256GB, 13.6"', 1199, '/images/macbook_air.jpg', 'laptops'],
-    ['Dell XPS 15', 'i7-13700H, 16GB/512GB', 1599, '/images/dell_xps.jpg', 'laptops'],
-    ['Lenovo ThinkPad X1 Carbon', 'i7-1365U, 16GB/512GB', 1799, '/images/thinkpad.jpg', 'laptops'],
-    ['iPad Air 11" M2', '128GB WiFi', 799, '/images/ipad_air.jpg', 'tablets'],
-    ['Samsung Galaxy Tab S9', '256GB WiFi', 899, '/images/tabs9.jpg', 'tablets'],
-    ['AirPods Pro 2', 'Active Noise Cancellation', 249, '/images/airpods.jpg', 'accessories'],
-    ['Samsung Galaxy Watch 6', '44mm Bluetooth', 399, '/images/watch6.jpg', 'accessories'],
-    ['Sony WH-1000XM5', 'Wireless NC Headphones', 349, '/images/sony_xm5.jpg', 'accessories'],
-    ['Anker PowerCore 20000', 'Powerbank 20000mAh', 49, '/images/anker.jpg', 'accessories']
+    ['iPhone 15 Pro 128GB', 'Apple A17 Pro, 6.1"', 1299, 'https://via.placeholder.com/300x200/0d6efd/fff?text=iPhone15+Pro', 'smartphones'],
+    ['Samsung Galaxy S24 Ultra', 'Snapdragon 8 Gen 3, 256GB', 1399, 'https://via.placeholder.com/300x200/000/fff?text=S24+Ultra', 'smartphones'],
+    ['Xiaomi 14 Pro', 'Snapdragon 8 Gen 3, 512GB', 999, 'https://via.placeholder.com/300x200/ff6600/fff?text=Xiaomi+14', 'smartphones'],
+    ['MacBook Air M2', '8GB/256GB, 13.6"', 1199, 'https://via.placeholder.com/300x200/333/fff?text=MacBook+Air', 'laptops'],
+    ['Dell XPS 15', 'i7-13700H, 16GB/512GB', 1599, 'https://via.placeholder.com/300x200/0073b1/fff?text=Dell+XPS', 'laptops'],
+    ['Lenovo ThinkPad X1 Carbon', 'i7-1365U, 16GB/512GB', 1799, 'https://via.placeholder.com/300x200/cc0000/fff?text=ThinkPad', 'laptops'],
+    ['iPad Air 11" M2', '128GB WiFi', 799, 'https://via.placeholder.com/300x200/999/fff?text=iPad+Air', 'tablets'],
+    ['Samsung Galaxy Tab S9', '256GB WiFi', 899, 'https://via.placeholder.com/300x200/555/fff?text=Galaxy+Tab+S9', 'tablets'],
+    ['AirPods Pro 2', 'Active Noise Cancellation', 249, 'https://via.placeholder.com/300x200/fff/000?text=AirPods+Pro', 'accessories'],
+    ['Samsung Galaxy Watch 6', '44mm Bluetooth', 399, 'https://via.placeholder.com/300x200/000/fff?text=Watch+6', 'accessories'],
+    ['Sony WH-1000XM5', 'Wireless NC Headphones', 349, 'https://via.placeholder.com/300x200/333/fff?text=Sony+WH1000XM5', 'accessories'],
+    ['Anker PowerCore 20000', 'Powerbank 20000mAh', 49, 'https://via.placeholder.com/300x200/ffcc00/000?text=Anker+PowerCore', 'accessories']
   ];
   const insert = db.transaction(() => {
     for (const p of prods) {
