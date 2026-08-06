@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Checkout - TechStore</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>body{background:#f5f7fa}.navbar{background:#0d6efd}.navbar-brand,.nav-link{color:#fff!important}</style></head>
+<body>
+<nav class="navbar navbar-expand-lg"><div class="container">
+  <a class="navbar-brand" href="/">⚡ TechStore</a>
+</div></nav>
+<div class="container my-4">
+  <h2>Checkout</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Order Summary</h4>
+      <ul class="list-group mb-3">
+        <% items.forEach(item => { %>
+          <li class="list-group-item d-flex justify-content-between"><span><%= item.product.name %> x<%= item.quantity %></span><span>€<%= (item.product.price * item.quantity).toFixed(2) %></span></li>
+        <% }) %>
+        <li class="list-group-item d-flex justify-content-between fw-bold"><span>Total</span><span>€<%= total.toFixed(2) %></span></li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <form method="POST" action="/checkout">
+        <div class="mb-3"><label>Full Name</label><input name="full_name" class="form-control" value="<%= user.full_name || '' %>" required></div>
+        <div class="mb-3"><label>Address</label><input name="address" class="form-control" value="<%= user.address || '' %>" required></div>
+        <h5 class="mt-4">Payment Details</h5>
+        <div class="mb-3"><label>Card Number</label><input name="card_number" class="form-control" placeholder="1234 5678 9012 3456" required></div>
+        <div class="row"><div class="col"><label>Expiry</label><input name="expiry" class="form-control" placeholder="MM/YY" required></div><div class="col"><label>CVV</label><input name="cvv" class="form-control" placeholder="123" required></div></div>
+        <div class="mb-3"><label>Cardholder</label><input name="cardholder" class="form-control" placeholder="John Doe" required></div>
+        <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Place Order</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
